@@ -49,14 +49,14 @@ export default function Instructor() {
         <div className="spinner"></div>
       ) : courses.length > 0 ? (
         <div>
-          <div className="my-4 flex flex-col lg:flex-row flex-grow w-full h-auto space-x-0 lg:space-x-4 space-y-4 lg:space-y-0">
+          <div className="my-4 flex flex-col lg:flex-row flex-grow w-full h-auto space-x-0 lg:space-x-4 space-y-4 lg:space-y-0 ">
             {/* Render chart / graph */}
             {totalAmount > 0 || totalStudents > 0 ? (
-              <div className="relative mx-auto aspect-w-1 aspect-h-1 w-full lg:w-3/4">
+              <div className="relative mx-auto aspect-w-1 aspect-h-1 w-full lg:w-3/4" style={{zIndex: 0}}>
                 <InstructorChart courses={instructorData} />
               </div>
             ) : (
-              <div className="flex-1 rounded-md bg-richblack-800 p-6">
+              <div className="flex-1 rounded-md bg-richblack-800 p-6 ">
                 <p className="text-lg font-bold text-richblack-5">Visualize</p>
                 <p className="mt-4 text-xl font-medium text-richblack-50">
                   Not Enough Data To Visualize
