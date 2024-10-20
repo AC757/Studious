@@ -33,11 +33,8 @@ export default function Upload({
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: !video
-      ? { "image/*": [".jpeg", ".jpg", ".png"] } // Accept only image formats for thumbnails
-      : {
-         "video/*": [".mp4"],
-         "application/pdf": [".pdf"], // Accept both video and PDF for lectures
-       },
+      ? { "image/*": [".jpeg", ".jpg", ".png"] }
+      : { "video/*": [".mp4"] },
     onDrop,
   })
 

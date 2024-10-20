@@ -143,7 +143,7 @@ export default function SubSectionModal({
           {/* Lecture Video Upload */}
           <Upload
             name="lectureVideo"
-            label="Lecture Video/Pdf"
+            label="Lecture Video"
             register={register}
             setValue={setValue}
             errors={errors}

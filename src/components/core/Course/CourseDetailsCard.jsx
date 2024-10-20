@@ -1,41 +1,40 @@
-import React from "react";
-import copy from "copy-to-clipboard";
-import { toast } from "react-hot-toast";
-import { BsFillCaretRightFill } from "react-icons/bs";
-import { FaShareSquare } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React from "react"
+import copy from "copy-to-clipboard"
+import { toast } from "react-hot-toast"
+import { BsFillCaretRightFill } from "react-icons/bs"
+import { FaShareSquare } from "react-icons/fa"
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
-import { addToCart } from "../../../slices/cartSlice";
-import { ACCOUNT_TYPE } from "../../../utils/constants";
+import { addToCart } from "../../../slices/cartSlice"
+import { ACCOUNT_TYPE } from "../../../utils/constants"
+
 
 function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse }) {
-  const { user } = useSelector((state) => state.profile);
-  const { token } = useSelector((state) => state.auth);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.profile)
+  const { token } = useSelector((state) => state.auth)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const {
     thumbnail: ThumbnailImage,
     price: CurrentPrice,
     _id: courseId,
-    videoFile, // Add this line
-    pdfFile,   // Add this line
-  } = course;
+  } = course
 
   const handleShare = () => {
-    copy(window.location.href);
-    toast.success("Link copied to clipboard");
-  };
+    copy(window.location.href)
+    toast.success("Link copied to clipboard")
+  }
 
   const handleAddToCart = () => {
     if (user && user?.accountType === ACCOUNT_TYPE.INSTRUCTOR) {
-      toast.error("You are an Instructor. You can't buy a course.");
-      return;
+      toast.error("You are an Instructor. You can't buy a course.")
+      return
     }
     if (token) {
-      dispatch(addToCart(course));
-      return;
+      dispatch(addToCart(course))
+      return
     }
     setConfirmationModal({
       text1: "You are not logged in!",
@@ -44,12 +43,16 @@ function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse }) {
       btn2Text: "Cancel",
       btn1Handler: () => navigate("/login"),
       btn2Handler: () => setConfirmationModal(null),
-    });
-  };
+    })
+  }
+
+  // console.log("Student already enrolled ", course?.studentsEnroled, user?._id)
 
   return (
     <>
-      <div className={`flex flex-col gap-4 rounded-md bg-richblack-700 p-4 text-richblack-5`}>
+      <div
+        className={`flex flex-col gap-4 rounded-md bg-richblack-700 p-4 text-richblack-5`}
+      >
         {/* Course Image */}
         <img
           src={ThumbnailImage}
@@ -88,7 +91,7 @@ function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse }) {
 
           <div className={``}>
             <p className={`my-2 text-xl font-semibold `}>
-              This Course Includes:
+              This Course Includes :
             </p>
             <div className="flex flex-col gap-3 text-sm text-caribbeangreen-100">
               {course?.instructions?.map((item, i) => {
@@ -97,31 +100,13 @@ function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse }) {
                     <BsFillCaretRightFill />
                     <span>{item}</span>
                   </p>
-                );
+                )
               })}
             </div>
           </div>
-
-          {/* Video and PDF Display */}
-          <div className="content-container">
-            {videoFile && (
-              <div className="video-container my-4">
-                <video width="100%" controls>
-                  <source src={videoFile} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              </div>
-            )}
-            {pdfFile && (
-              <div className="pdf-container my-4">
-                <embed src={pdfFile} type="application/pdf" width="100%" height="600px" />
-              </div>
-            )}
-          </div>
-
           <div className="text-center">
             <button
-              className="mx-auto flex items-center gap-2 py-6 text-yellow-100"
+              className="mx-auto flex items-center gap-2 py-6 text-yellow-100 "
               onClick={handleShare}
             >
               <FaShareSquare size={15} /> Share
@@ -130,7 +115,7 @@ function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse }) {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default CourseDetailsCard;
+export default CourseDetailsCard
